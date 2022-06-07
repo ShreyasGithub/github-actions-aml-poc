@@ -1,0 +1,16 @@
+# Actions train a model on Azure Machine Learning
+name: aml-train-workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Check Out Repository
+      id: checkout_repository
+      uses: actions/checkout@v2
