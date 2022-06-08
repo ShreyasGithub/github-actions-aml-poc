@@ -4,9 +4,9 @@ from azureml.core import Experiment
 from azureml.core import Environment
 from azureml.core import ScriptRunConfig
 
-if __name__ == "__main__":
-    ws = Workspace.from_config()
-    experiment = Experiment(workspace=ws, name='github-experiment-train')
+
+def main(workspace):
+    
     config = ScriptRunConfig(source_directory='./code/train',
                              script='train.py',
                              compute_target='github-cluster')
@@ -18,7 +18,13 @@ if __name__ == "__main__":
     )
     config.run_config.environment = env
 
-    run = experiment.submit(config)
+    # run = experiment.submit(config)
 
-    aml_url = run.get_portal_url()
-    print(aml_url)
+    # aml_url = run.get_portal_url()
+    # print(aml_url)
+    
+    return config
+
+if __name__ == "__main__":
+    ws = Workspace.from_config()
+    main(ws)
