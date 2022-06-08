@@ -14,7 +14,7 @@ def main(workspace):
     # set up pytorch environment
     env = Environment.from_conda_specification(
         name='pytorch-env',
-        file_path='pytorch-env.yml'
+        file_path='./code/train/pytorch-env.yml'
     )
     config.run_config.environment = env
 
