@@ -48,7 +48,6 @@ def main(workspace):
         script_name="data_loader.py",
         runconfig=run_config,
         source_directory=run_config.source_directory,
-        script_name=run_config.script,
         runconfig=run_config.run_config,
     )
     
