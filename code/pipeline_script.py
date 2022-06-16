@@ -46,7 +46,6 @@ def main(workspace):
     data_prep_step = PythonScriptStep(
         name="data preparation step",
         script_name="data_loader.py",
-        runconfig=run_config,
         source_directory=run_config.source_directory,
         runconfig=run_config.run_config,
     )
