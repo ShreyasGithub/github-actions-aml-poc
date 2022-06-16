@@ -37,15 +37,15 @@ def main(workspace):
     # set up pytorch environment
     env = Environment.from_conda_specification(
         name='train-env',
-        file_path='./code/train/train-env.yml'
+        file_path='./code/data_preparation/data_prep_env.yml'
     )
     
     run_config.run_config.environment = env
     
     data_prep_step = PythonScriptStep(
         name="data preparation step",
-        script_name="data_loader.py",
-        source_directory='./code/data_preparation',
+        script_name="./code/data_preparation/data_loader.py",
+        source_directory='./code',
         runconfig=run_config,
         allow_reuse=True,
     )
