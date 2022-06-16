@@ -37,42 +37,42 @@ jobs:
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # Register model in Azure Machine Learning model registry
-    - name: Register model
-      id: aml_registermodel
-      uses: Azure/aml-registermodel@v1
-      with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          run_id:  ${{ steps.aml_run.outputs.run_id }}
-          experiment_name: ${{ steps.aml_run.outputs.experiment_name }}
+    # # Register model in Azure Machine Learning model registry
+    # - name: Register model
+    #   id: aml_registermodel
+    #   uses: Azure/aml-registermodel@v1
+    #   with:
+    #       azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+    #       run_id:  ${{ steps.aml_run.outputs.run_id }}
+    #       experiment_name: ${{ steps.aml_run.outputs.experiment_name }}
 
-    # Deploy your model to dev (this is optional)
-    - name: Dev Deploy
-      id: aml_dev_deploy
-      uses: Azure/aml-deploy@v1
-      with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          model_name:  "${{ steps.aml_registermodel.outputs.model_name }}"
-          model_version: "${{ steps.aml_registermodel.outputs.model_version }}"
-          parameters_file: "deploy_aci.json"
+    # # Deploy your model to dev (this is optional)
+    # - name: Dev Deploy
+    #   id: aml_dev_deploy
+    #   uses: Azure/aml-deploy@v1
+    #   with:
+    #       azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+    #       model_name:  "${{ steps.aml_registermodel.outputs.model_name }}"
+    #       model_version: "${{ steps.aml_registermodel.outputs.model_version }}"
+    #       parameters_file: "deploy_aci.json"
     
-    - name: Display Aci Deploy Details
-      run: |
-        echo scoring-endpoint: ${{ steps.aml_dev_deploy.outputs.service_scoring_uri}}
-        echo swagger-uri: ${{ steps.aml_dev_deploy.outputs.service_swagger_uri}}
+    # - name: Display Aci Deploy Details
+    #   run: |
+    #     echo scoring-endpoint: ${{ steps.aml_dev_deploy.outputs.service_scoring_uri}}
+    #     echo swagger-uri: ${{ steps.aml_dev_deploy.outputs.service_swagger_uri}}
         
-      # Deploy your model to production
-    - name: Prod Deploy
-      id: aml_prod_deploy
-      uses: Azure/aml-deploy@v1
-      with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          model_name:  "${{ steps.aml_registermodel.outputs.model_name }}"  
-          model_version: "${{ steps.aml_registermodel.outputs.model_version }}"
-          parameters_file: "deploy_aks.json"
+    #   # Deploy your model to production
+    # - name: Prod Deploy
+    #   id: aml_prod_deploy
+    #   uses: Azure/aml-deploy@v1
+    #   with:
+    #       azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+    #       model_name:  "${{ steps.aml_registermodel.outputs.model_name }}"  
+    #       model_version: "${{ steps.aml_registermodel.outputs.model_version }}"
+    #       parameters_file: "deploy_aks.json"
 
-    - name: Display AKS Deploy Details
-      run: |
-          echo scoring-endpoint: ${{ steps.aml_prod_deploy.outputs.service_scoring_uri}}
-          echo swagger-uri: ${{ steps.aml_prod_deploy.outputs.service_swagger_uri}}
+    # - name: Display AKS Deploy Details
+    #   run: |
+    #       echo scoring-endpoint: ${{ steps.aml_prod_deploy.outputs.service_scoring_uri}}
+    #       echo swagger-uri: ${{ steps.aml_prod_deploy.outputs.service_swagger_uri}}
  

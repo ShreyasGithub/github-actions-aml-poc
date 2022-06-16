@@ -73,9 +73,7 @@ def main(args):
     run.log('Kernel type', np.str(args.kernel))
     run.log('Penalty', np.float(args.penalty))
 
-    # Load iris dataset
-    X, y = datasets.load_iris(return_X_y=True)
-
+    
     # dividing X,y into train and test data
     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     data = {'train': {'X': x_train, 'y': y_train},
