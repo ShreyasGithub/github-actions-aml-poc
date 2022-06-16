@@ -31,24 +31,25 @@ def main(workspace):
     # config.run_config.environment = env
     
     # return config
-    
-    run_config = ScriptRunConfig(
-        source_directory='./code/data_preparation',
-        compute_target='github-cluster'
-    )
-
     # set up pytorch environment
     env = Environment.from_conda_specification(
         name='train-env',
         file_path='./code/data_preparation/data_prep_env.yml'
     )
     
-    run_config.run_config.environment = env
+    run_config = ScriptRunConfig(
+        source_directory='./code/data_preparation',
+        compute_target='github-cluster',
+        environment = env        
+    )
     
     data_prep_step = PythonScriptStep(
         name="data preparation step",
         script_name="data_loader.py",
-        runconfig=run_config
+        runconfig=run_config,
+        source_directory=run_config.source_directory,
+        script_name=run_config.script,
+        runconfig=run_config.run_config,
     )
     
     return Pipeline(workspace, steps=[data_prep_step])
