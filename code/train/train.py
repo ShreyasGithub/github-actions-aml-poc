@@ -72,9 +72,10 @@ def main(args):
     # Log arguments
     run.log('Kernel type', np.str(args.kernel))
     run.log('Penalty', np.float(args.penalty))
-
-    dataset = run.input_datasets["github_iris_dataset"]
-    iris_data_frame = dataset.to_pandas_dataframe()
+    
+    ws = run.experiment.workspace
+    iris_dataset = Dataset.get_by_name(workspace=ws, name='github_iris_dataset')
+    iris_data_frame = iris_dataset.to_pandas_dataframe()
     print(iris_data_frame.info())
     print(iris_data_frame.head())
     X = iris_data_frame.drop(columns=['target']).values
