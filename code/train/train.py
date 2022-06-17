@@ -73,7 +73,7 @@ def main(args):
     run.log('Kernel type', np.str(args.kernel))
     run.log('Penalty', np.float(args.penalty))
 
-    dataset = run.input_datasets["prepared_fashion_ds"]
+    dataset = run.input_datasets["github_iris_dataset"]
     iris_data_frame = dataset.to_pandas_dataframe()
     print(iris_data_frame.info())
     print(iris_data_frame.head())
