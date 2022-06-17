@@ -73,6 +73,12 @@ def main(args):
     run.log('Kernel type', np.str(args.kernel))
     run.log('Penalty', np.float(args.penalty))
 
+    dataset = run.input_datasets["prepared_fashion_ds"]
+    iris_data_frame = dataset.to_pandas_dataframe()
+    print(iris_data_frame.info())
+    print(iris_data_frame.head())
+    X = iris_data_frame.drop(columns=['target']).values
+    y = iris_data_frame[['target']].values
     
     # dividing X,y into train and test data
     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2)

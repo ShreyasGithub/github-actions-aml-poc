@@ -23,7 +23,6 @@ def main(workspace):
     #                          script='data_loader.py',
     #                          compute_target='github-cluster')
 
-    # # set up pytorch environment
     # env = Environment.from_conda_specification(
     #     name='train-env',
     #     file_path='./code/data_preparation/data_prep_env.yml'
@@ -31,26 +30,48 @@ def main(workspace):
     # config.run_config.environment = env
     
     # return config
-    # set up pytorch environment
-    env = Environment.from_conda_specification(
-        name='train-env',
+    
+    data_prep_env = Environment.from_conda_specification(
+        name='data_prep_env',
         file_path='./code/data_preparation/data_prep_env.yml'
     )
     
-    run_config = ScriptRunConfig(
+    data_prep_run_config = ScriptRunConfig(
         source_directory='./code/data_preparation',
         compute_target='github-cluster',
-        environment = env        
+        environment = data_prep_env        
     )
     
     data_prep_step = PythonScriptStep(
         name="data preparation step",
         script_name="data_loader.py",
-        source_directory=run_config.source_directory,
-        runconfig=run_config.run_config,
+        source_directory=data_prep_run_config.source_directory,
+        runconfig=data_prep_run_config.run_config,
     )
     
-    return Pipeline(workspace, steps=[data_prep_step])
+    train_env = Environment.from_conda_specification(
+        name='data_prep_env',
+        file_path='./code/train/train_env.yml'
+    )
+    
+    train_run_config = ScriptRunConfig(
+        source_directory='./code/train',
+        compute_target='github-cluster',
+        environment = train_env        
+    )
+    
+    
+    train_step = PythonScriptStep(
+        name="model training step",
+        script_name="train.py",
+        source_directory=train_run_config.source_directory,
+        runconfig=train_run_config.run_config,
+    )
+    
+    return Pipeline(workspace, steps=[
+        data_prep_step,
+        train_step
+    ])
 
 if __name__ == "__main__":
     ws = Workspace.from_config()
