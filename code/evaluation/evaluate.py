@@ -14,6 +14,6 @@ def evaluate_model():
     
     workspace = run.experiment.workspace
     models = AMLModel.list(workspace, name='github-iris-clf', latest=True)
-    print(models)
+    print(models[0].run_id)
     
 evaluate_model()
