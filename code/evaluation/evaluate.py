@@ -1,5 +1,5 @@
-from azureml.core import Workspace, Datastore, Dataset, Run
-from azureml.core.model import Model as AMLModel
+from azureml.core import Workspace, Datastore, Dataset, Run, get_run
+from azureml.core.model import Model
 from azureml.pipeline.core import PipelineRun
 
 
@@ -13,7 +13,11 @@ def evaluate_model():
     current_accuracy = current_metrics['Accuracy']
     
     workspace = run.experiment.workspace
-    models = AMLModel.list(workspace, name='github-iris-clf', latest=True)
-    print(models[0].run_id)
+    models = Model.list(workspace, name='github-iris-clf', latest=True)
+    print('model_run_id', models[0].run_id)
+    previous_run = get_run(models[0].run_id)
+    print('previous run metrics', previous_run.get_metrics())
+    
+    
     
 evaluate_model()
