@@ -6,6 +6,6 @@ dependencies:
   - numpy=1.19.0
   - pip:
     - azureml-defaults==1.21.0
-    - azureml-pipeline==1.42.0
+    - azureml-pipeline==1.21.0
 channels:
   - conda-forge
