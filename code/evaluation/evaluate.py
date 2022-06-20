@@ -14,9 +14,20 @@ def evaluate_model():
     
     workspace = run.experiment.workspace
     models = Model.list(workspace, name='github-iris-clf', latest=True)
-    print('model_run_id', models[0].run_id)
-    previous_run = get_run(run.experiment, models[0].run_id)
-    print('previous run metrics', previous_run.get_metrics())
+    
+    if len(models):
+        print('model_run_id', models[0].run_id)
+        previous_run = get_run(run.experiment, models[0].run_id)
+        print('previous run metrics', previous_run.get_metrics())
+        previous_metrics = previous_run.get_metrics()
+        previous_accuracy = previous_metrics['Accuracy']
+        
+        if current_accuracy < previous_accuracy:
+            raise Exception(
+                f"current metrics failed to beat champion, current acc:{current_accuracy}, previous acc{previous_accuracy}"
+            )
+        else:
+            print(f"current metrics beats champion, current acc:{current_accuracy}, previous acc{previous_accuracy}")
     
     
     
