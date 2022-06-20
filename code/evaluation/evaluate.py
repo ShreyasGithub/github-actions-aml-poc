@@ -1,4 +1,6 @@
-from azureml.core import Workspace, Datastore, Dataset, Run, PipelineRun
+from azureml.core import Workspace, Datastore, Dataset, Run
+from azureml.pipeline.core import PipelineRun
+
 
 def evaluate_model():
     run = Run.get_context()
