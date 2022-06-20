@@ -68,9 +68,31 @@ def main(workspace):
         runconfig=train_run_config.run_config,
     )
     
+    evaluation_env = Environment.from_conda_specification(
+        name='evaluation_env',
+        file_path='./code/evaluation/evaluation_env.yml'
+    )
+    
+    evaluation_run_config = ScriptRunConfig(
+        source_directory='./code/evaluation',
+        compute_target='github-cluster',
+        environment = evaluation_env        
+    )
+    
+    
+    evaluation_step = PythonScriptStep(
+        name="model evaluation step",
+        script_name="evaluate.py",
+        source_directory=evaluation_run_config.source_directory,
+        runconfig=evaluation_run_config.run_config,
+    )
+    
+    
+    
     return Pipeline(workspace, steps=[
         data_prep_step,
-        train_step
+        train_step,
+        evaluation_step
     ])
 
 if __name__ == "__main__":
