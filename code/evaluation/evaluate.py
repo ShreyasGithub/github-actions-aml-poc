@@ -24,10 +24,10 @@ def evaluate_model():
         
         if current_accuracy < previous_accuracy:
             raise Exception(
-                f"current metrics failed to beat champion, current acc:{current_accuracy}, previous acc{previous_accuracy}"
+                f"current metrics failed to beat champion, current acc:{current_accuracy}, previous acc:{previous_accuracy}"
             )
         else:
-            print(f"current metrics beats champion, current acc:{current_accuracy}, previous acc{previous_accuracy}")
+            print(f"current metrics beats champion, current acc:{current_accuracy}, previous acc:{previous_accuracy}")
     
     
     
