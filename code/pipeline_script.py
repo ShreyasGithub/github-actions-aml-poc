@@ -66,6 +66,7 @@ def main(workspace):
         script_name="train.py",
         source_directory=train_run_config.source_directory,
         runconfig=train_run_config.run_config,
+        allow_reuse=False,
     )
     
     evaluation_env = Environment.from_conda_specification(
@@ -85,6 +86,7 @@ def main(workspace):
         script_name="evaluate.py",
         source_directory=evaluation_run_config.source_directory,
         runconfig=evaluation_run_config.run_config,
+        allow_reuse=False,
     )
     
     
