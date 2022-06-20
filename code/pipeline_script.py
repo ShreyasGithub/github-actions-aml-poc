@@ -7,14 +7,13 @@ from azureml.core import (
     Datastore,
     ComputeTarget,
     Environment,
-    ScriptRunConfig,
-    StepSequence
+    ScriptRunConfig
 )
 from azureml.data import OutputFileDatasetConfig
 from azureml.core.compute import AmlCompute
 from azureml.core.compute_target import ComputeTargetException
 from azureml.pipeline.steps import PythonScriptStep
-from azureml.pipeline.core import Pipeline
+from azureml.pipeline.core import Pipeline, StepSequence
 
 
 
