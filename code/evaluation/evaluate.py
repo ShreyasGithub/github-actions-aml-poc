@@ -15,7 +15,7 @@ def evaluate_model():
     workspace = run.experiment.workspace
     models = Model.list(workspace, name='github-iris-clf', latest=True)
     print('model_run_id', models[0].run_id)
-    previous_run = get_run(models[0].run_id)
+    previous_run = get_run(run.experiment, models[0].run_id)
     print('previous run metrics', previous_run.get_metrics())
     
     
