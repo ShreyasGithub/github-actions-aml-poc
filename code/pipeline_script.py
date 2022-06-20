@@ -7,7 +7,8 @@ from azureml.core import (
     Datastore,
     ComputeTarget,
     Environment,
-    ScriptRunConfig
+    ScriptRunConfig,
+    StepSequence
 )
 from azureml.data import OutputFileDatasetConfig
 from azureml.core.compute import AmlCompute
@@ -90,12 +91,13 @@ def main(workspace):
     )
     
     
-    
-    return Pipeline(workspace, steps=[
+    step_sequence = StepSequence(steps=[
         data_prep_step,
         train_step,
         evaluation_step
     ])
+    
+    return Pipeline(workspace, steps=step_sequence)
 
 if __name__ == "__main__":
     ws = Workspace.from_config()
